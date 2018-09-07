@@ -34,10 +34,10 @@ namespace Dnc.Services.Controllers
             return dataList;
         }
         /// <summary>
-        /// 根据商品名称获取商品详细信息
+        /// 搜索商品
         /// </summary>
-        /// <param name="name"></param>
         /// /api/ProductsInfoApi/GetProductsAllByName?name=
+        /// <param name="name"></param>
         /// <returns></returns>
         [HttpGet("{name}")]
         [HttpGet("GetProductsAllByName")]
@@ -50,6 +50,19 @@ namespace Dnc.Services.Controllers
                 dataList.Add(new ProductsInfoMV(item));
             }
             return dataList;
+        }
+        /// <summary>
+        /// 根据商品ID获取商品详细信息
+        /// </summary>
+        /// <param name="name"></param>
+        /// /api/ProductsInfoApi/GetProductsAllByID?name=
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        [HttpGet("GetProductsAllByID")]
+        public IActionResult GetProductsAllByID(string id)
+        {
+            var data = _DbService.GetSingleBy<ProductsInfo>(m => m.ID == id, m => m.ProductsCategory);
+            return Json(data);
         }
         /// <summary>
         /// 根据商品类型名称查所有商品信息

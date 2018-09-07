@@ -34,42 +34,7 @@ namespace Dnc.Services.Controllers
             }
             return dataList;
         }
-        /// <summary>
-        /// 根据商品名称获取商品详细信息
-        /// </summary>
-        /// <param name="name"></param>
-        /// /api/ProductsCategory/GetProductsAllByName?name=
-        /// <returns></returns>
-        [HttpGet("{name}")]
-        [HttpGet("GetProductsAllByName")]
-        public IEnumerable<ProductsInfoMV> GetProductsAllByName(string name)
-        {
-            var data = _DbService.GetAll<ProductsInfo>(m => m.ProductsCategory).Where(m => m.Name.Contains(name)).ToList();
-            var dataList = new List<ProductsInfoMV>();
-            foreach (var item in data)
-            {
-                dataList.Add(new ProductsInfoMV(item));
-            }
-            return dataList;
-        }
-        /// <summary>
-        /// 根据商品类型名称查所有商品信息
-        /// </summary>
-        /// <param name="name"></param>
-        /// /api/ProductsCategory/GetProductsAllByCName?name=
-        /// <returns></returns>
-        [HttpGet("{name}")]
-        [HttpGet("GetProductsAllByCName")]
-        public IEnumerable<ProductsInfoMV> GetProductsAllByCName(string name)
-        {
-            var data = _DbService.GetAll<ProductsInfo>(m => m.ProductsCategory).Where(m => m.ProductsCategory.Name.Contains(name)).ToList();
-            var dataList = new List<ProductsInfoMV>();
-            foreach (var item in data)
-            {
-                dataList.Add(new ProductsInfoMV(item));
-            }
-            return dataList;
-        }
+      
         [HttpPost]
         public void Post([FromBody]string value)
         {
