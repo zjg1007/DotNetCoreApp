@@ -1,0 +1,323 @@
+﻿@model DNC.ViewModels.Article.ProductsInfoMV
+@using  Dnc.Entities.Article
+
+<style type="text/css">
+    .zlb {
+        width: 100px;
+        height: 40px;
+        color: #000000;
+        float: left;
+        text-align: center;
+        line-height: 40px;
+        font-size: 12px;
+        margin-left: 10px;
+        border: 1px dashed #808080;
+        font-family: 'Microsoft YaHei';
+        cursor: pointer;
+    }
+
+    .clickB {
+        background: #01AAED;
+        color: #fff;
+        border: 1px solid #01AAED;
+    }
+    .layui-edge {
+        margin-top: 14px !important;
+    }
+    
+</style>
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">商品发布</a></li>
+    </ul>
+</div>
+
+<div class="formbody">
+
+    <div class="formtitle"><span>基本信息</span></div>
+    <form id="form" class="layui-form" name="form" asp-controller="Home" asp-action="Edit" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <ul class="forminfo">
+            <li>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label asp-for="Name"></label><input asp-for="Name" name="Name" type="text" class="dfinput" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="layui-inline">
+                        <label asp-for="Title"></label><input asp-for="Title" name="Title" type="text" class="dfinput" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label asp-for="Favorable"></label><input asp-for="Favorable" name="Favorable" type="text" class="dfinput" />
+                        <span asp-validation-for="Favorable" class="text-danger"></span>
+                    </div>
+                    <div class="layui-inline">
+                        <label asp-for="ShoppPrice"></label><input placeholder="￥" autocomplete="off" asp-for="ShoppPrice" name="ShoppPrice" type="text" class="dfinput" />
+                        <span asp-validation-for="ShoppPrice" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </li>
+            <li>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label asp-for="CostpPrice"></label><input placeholder="￥" autocomplete="off" asp-for="CostpPrice" name="CostpPrice" type="text" class="dfinput" />
+                        <span asp-validation-for="CostpPrice" class="text-danger"></span>
+                    </div>
+                    <div class="layui-inline">
+                        <label asp-for="Volume"></label><input asp-for="Volume" name="Volume" type="text" class="dfinput" />
+                        <span asp-validation-for="Volume" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </li>
+            <li>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label asp-for="PayType"></label><input asp-for="PayType" name="PayType" type="text" class="dfinput" />
+                        <span asp-validation-for="PayType" class="text-danger"></span>
+                    </div>
+                    <div class="layui-inline">
+                        <label asp-for="Inventory"></label><input asp-for="Inventory" name="Inventory" type="text" class="dfinput" />
+                        <span asp-validation-for="Inventory" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </li>
+            <li>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label asp-for="Limit"></label><input asp-for="Limit" name="Limit" type="text" class="dfinput" />
+                        <span asp-validation-for="Limit" class="text-danger"></span>
+                    </div>
+                    <div class="layui-inline">
+                        <label>文章类型</label>
+                        @Html.DropDownList("ProductsCategoryName", new SelectList(ViewBag.TypeList, "ID", "Name"))
+                    </div>
+                </div>
+
+            </li>
+            <li>
+                <div class="layui-form-item">
+                        <input type="checkbox" name="like[isBest]" title="是否为精品">
+                        <input type="checkbox" name="like[isHot]" title="是否热销" checked="">
+                        <input type="checkbox" name="like[isNew]" title="是否是新品">
+                        <input type="checkbox" name="like[isFree]" title="是否免运费">
+                </div>
+            </li>
+            <li>
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="test2">多图片上传</button>
+                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                        预览图：
+                        <div class="layui-upload-list" id="demo2"></div>
+                    </blockquote>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <label asp-for="Abstract"></label>
+                    <script id="editor" name="Abstract" type="text/plain" style="height:300px;">
+                    </script>
+                </div>
+            </li>
+        </ul>
+        <div class="editor-area">
+        </div>
+        <label>&nbsp;</label><input name="" type="button" id="btn" class="btn" value="确认保存" />
+        <script type="text/javascript">
+
+            //实例化编辑器
+            //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+            var ue = UE.getEditor('editor');
+
+
+            function isFocus(e) {
+                alert(UE.getEditor('editor').isFocus());
+                UE.dom.domUtils.preventDefault(e)
+            }
+            function setblur(e) {
+                UE.getEditor('editor').blur();
+                UE.dom.domUtils.preventDefault(e)
+            }
+            function insertHtml() {
+                var value = prompt('插入html代码', '');
+                UE.getEditor('editor').execCommand('insertHtml', value)
+            }
+            function createEditor() {
+                enableBtn();
+                UE.getEditor('editor');
+            }
+            function getAllHtml() {
+                alert(UE.getEditor('editor').getAllHtml())
+            }
+            function getContent() {
+                var arr = [];
+                arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+                arr.push("内容为：");
+                arr.push(UE.getEditor('editor').getContent());
+                alert(arr.join("\n"));
+            }
+            function getPlainTxt() {
+                var arr = [];
+                arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+                arr.push("内容为：");
+                arr.push(UE.getEditor('editor').getPlainTxt());
+                alert(arr.join('\n'))
+            }
+            function setContent(isAppendTo) {
+                var arr = [];
+                arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+                UE.getEditor('editor').setContent(isAppendTo);
+                alert(arr.join("\n"));
+            }
+            function setDisabled() {
+                UE.getEditor('editor').setDisabled('fullscreen');
+                disableBtn("enable");
+            }
+
+            function setEnabled() {
+                UE.getEditor('editor').setEnabled();
+                enableBtn();
+            }
+
+            function getText() {
+                //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+                var range = UE.getEditor('editor').selection.getRange();
+                range.select();
+                var txt = UE.getEditor('editor').selection.getText();
+                alert(txt)
+            }
+
+            function getContentTxt() {
+                var arr = [];
+                arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+                arr.push("编辑器的纯文本内容为：");
+                arr.push(UE.getEditor('editor').getContentTxt());
+                alert(arr.join("\n"));
+            }
+            function hasContent() {
+                var arr = [];
+                arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+                arr.push("判断结果为：");
+                arr.push(UE.getEditor('editor').hasContents());
+                alert(arr.join("\n"));
+            }
+            function setFocus() {
+                UE.getEditor('editor').focus();
+            }
+            function deleteEditor() {
+                disableBtn();
+                UE.getEditor('editor').destroy();
+            }
+            function disableBtn(str) {
+                var div = document.getElementById('btns');
+                var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+                for (var i = 0, btn; btn = btns[i++];) {
+                    if (btn.id == str) {
+                        UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+                    } else {
+                        btn.setAttribute("disabled", "true");
+                    }
+                }
+            }
+            function enableBtn() {
+                var div = document.getElementById('btns');
+                var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+                for (var i = 0, btn; btn = btns[i++];) {
+                    UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+                }
+            }
+
+            function getLocalData() {
+                alert(UE.getEditor('editor').execCommand("getlocaldata"));
+            }
+
+            function clearLocalData() {
+                UE.getEditor('editor').execCommand("clearlocaldata");
+                alert("已清空草稿箱")
+            }
+            function getLebelTextAll() {
+                var mycars = new Array();
+                $('.clickB').each(function () {
+                    mycars.push($(this).text());
+                });
+                return mycars.join(',');
+            }
+        </script>
+    </form>
+
+</div>
+<script src="~/js/layui.js"></script>
+<script type="text/javascript">
+    $(function () {
+        /*上传多个文件列表----开始*/
+        layui.use('upload', function () {
+            var $ = layui.jquery
+                , upload = layui.upload;
+            //多文件列表示例
+            //多图片上传
+            upload.render({
+                elem: '#test2'
+                , url: '/Home/upload/'
+                , multiple: true
+                , before: function (obj) {
+                    //加载层-默认风格
+                    layer.load();
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo2').append('<img width=80 height=80 style="margin:0 5px;" src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+                    });
+                }
+                , done: function (res) {
+                    //上传完毕
+                    layer.msg(res.msg);
+                    layer.closeAll('loading');
+                }
+            });
+
+        })
+        /*上传多个文件列表----结束*/
+
+        //一般直接写在一个js文件中
+        layui.use(['layer', 'form'], function () {
+            var layer = layui.layer
+                , form = layui.form;
+
+            $("#btn").on("click", function () {
+
+                //加载层-默认风格
+                layer.load();
+                $('#form').ajaxSubmit(      //ajax方式提交表单
+                    {
+                        url: '/Home/Right',
+                        type: 'post',
+                        dataType: 'json',
+                        beforeSubmit: function () { },
+                        data: {
+                            htmlInfo: UE.getEditor('editor').getContent()
+                        },
+                        success: function (data) {
+                            if (data.isLogon) {
+                                layer.msg(data.message);
+                                layer.closeAll('loading');
+                                window.parent.rightFrame.location.href = "/Home/ProductsInfo";
+                            } else {
+                                layer.msg(data.message);
+                                layer.closeAll('loading');
+                            }
+
+                        }
+                    });
+            });
+
+        });
+    });
+</script>

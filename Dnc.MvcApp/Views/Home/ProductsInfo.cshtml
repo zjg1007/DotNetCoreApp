@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/js/jquery.js"></script>
+
+
+</head>
+
+
+<body>
+    <div class="demoTable" style="margin:10px 0 0 10px;">
+        搜索名称：
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off" />
+        </div>
+        <button class="layui-btn" id="searchLabel" data-type="reload">搜索</button>
+        <button class="layui-btn" id="plDel" data-type="getCheckData">批量删除</button>
+        <button class="layui-btn" onclick="insertLabel()">新增</button>
+    </div>
+    <table class="layui-hide" id="test" lay-filter="demo"></table>
+
+
+
+    <script>
+        function insertLabel() {
+            window.parent.rightFrame.location.href = "/Home/Right";
+        }
+        layui.use('table', function () {
+            var table = layui.table;
+
+            //监听工具条
+            table.on('tool(demo)', function (obj) {
+                var data = obj.data;
+                 if (obj.event === 'edit') {
+                     window.parent.rightFrame.location.href = "/Home/Edit?id=" + data.id;
+                }
+            });
+
+            table.render({
+                elem: '#test'
+                , url: '/Home/ProductsInfoAll'
+                , height: 'full-200'
+                , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                , cols: [[
+                    { type: 'checkbox' },
+                    { field: 'name', width: 130, title: '商品名称' }
+                    , { field: 'title', width: 130, title: '商品标题', sort: true }
+                    , { field: 'favorable', width: 80, title: '优惠信息' }
+                    , { field: 'abstract', title: '商品简介', width: '20%', minWidth: 100 } //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                    , { field: 'shoppPrice', title: '商品销售价格', width: '20%', sort: true }
+                    , { field: 'costpPrice', title: '商品成本价', sort: true }
+                    , { field: 'isBest', width: 137, title: '是否为精品', sort: true }
+                    , { field: 'isHot', width: 137, title: '是否热销', sort: true }
+                    , { field: 'isNew', width: 137, title: '是否是新品', sort: true }
+                    , { field: 'isFree', width: 137, title: '是否免运费', sort: true }
+                    , { field: 'weight', width: 137, title: '重量', sort: true }
+                    , { field: 'volume', width: 137, title: '尺寸', sort: true }
+                    , { field: 'payType', width: 137, title: '计价单位（件重尺）', sort: true }
+                    , { field: 'inventory', width: 137, title: '商品库存', sort: true }
+                    , { field: 'limit', width: 137, title: '警告库存', sort: true }
+                    , { field: 'sell', width: 137, title: '销量', sort: true }
+                    , { field: 'bestCount', width: 137, title: '好评数', sort: true }
+                    , { field: 'mediumcCount', width: 137, title: '中等评价数', sort: true }
+                    , { field: 'badcCount', width: 137, title: '差评数', sort: true }
+                    , { field: 'productsCategoryName', width: 137, title: '类别名称', sort: true }
+                    , { field: 'right', width: 178, sort: true, align: 'center', toolbar: '#barDemo' }
+                ]], page: true
+                , id: 'testReload'
+            });
+            //按钮功能获取数据
+            var $ = layui.$, active = {
+                getCheckData: function () { //获取选中数据
+                    var checkStatus = table.checkStatus('testReload')
+                        , data = checkStatus.data;
+                    //判断用户是否选择了数据,选择了执行删除功能
+                    if (data.length > 0) {
+                        layer.confirm('真的全部删除么？', function (index) {
+                            layer.close(index);
+                            $.post("/Home/Del", { batchid: JSON.stringify(data) }, function (result) {
+                                if (result.isLogon) {
+                                    layer.msg(result.message);
+                                } else {
+                                    layer.msg(result.message);
+                                }
+                                //更新数据表格
+                                table.reload('testReload');
+                            });
+
+                        });
+                    } else {
+                        layer.msg("请选择您要删除的数据");
+                    }
+                },
+                reload: function () {
+                    var demoReload = $('#demoReload');
+                    //执行重载
+                    table.reload('testReload', {
+                        page: {
+                            curr: 1 //重新从第 1 页开s始
+                        }
+                        , where: {
+                            key: {
+                                name: demoReload.val()
+                            }
+                        }
+                    });
+                }
+            };
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+        });
+    </script>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    </script>
+</body>
+
+</html>
