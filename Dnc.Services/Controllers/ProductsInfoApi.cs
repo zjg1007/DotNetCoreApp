@@ -1,6 +1,7 @@
 ﻿using Dnc.DataAccessRepository.Repositories;
 using Dnc.Entities.Article;
 using DNC.ApiModel.Article;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace Dnc.Services.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
+    [EnableCors("DncDemo")]
     public class ProductsInfoApi: Controller
     {
         private readonly IEntityRepository _DbService;
@@ -23,6 +26,7 @@ namespace Dnc.Services.Controllers
         /// </summary>
         /// /api/ProductsInfoApi
         /// <returns></returns>
+        
         public IEnumerable<ProductsInfoMV> Get()
         {
             var data = _DbService.GetAll<ProductsInfo>(m => m.ProductsCategory).ToList();

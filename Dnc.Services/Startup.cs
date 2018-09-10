@@ -35,12 +35,18 @@ namespace Dnc.Services
         {
             // Add framework services.
             services.AddMvc();
-         
-            // 添加跨域访问授权处理
-            services.AddCors(option => option.AddPolicy("DncDemo", p => p.WithOrigins("http://localhost:8166", 
-                "http://localhost:8166").AllowAnyHeader().AllowAnyMethod()));
 
-            // 注入 DbContext 对应的数据库连接实例
+            // 添加跨域访问授权处理
+            //services.AddCors(option => option.AddPolicy("DncDemo", p => p.WithOrigins("http://813zjg.top:5002",
+            //    "http://localhost:8166").AllowAnyHeader().AllowAnyMethod()));
+            services.AddCors(option => option.AddPolicy("DncDemo", builder =>
+            {
+                builder.AllowAnyOrigin() //允许任何来源的主机访问
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();//指定处理cookie
+            }));
+             //注入 DbContext 对应的数据库连接实例
             services.AddDbContext<EntityDbContext>();
 
             // 注入 数据服务接口实例;
