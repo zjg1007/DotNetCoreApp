@@ -25,6 +25,7 @@
     .layui-edge {
         margin-top: 14px !important;
     }
+
 </style>
 <div class="place">
     <span>位置：</span>
@@ -37,7 +38,7 @@
 <div class="formbody">
 
     <div class="formtitle"><span>基本信息</span></div>
-    <form id="form" class="layui-form" name="form" asp-controller="Home" asp-action="Edit" enctype="multipart/form-data">
+    <form id="form" class="layui-form" name="form"  enctype="multipart/form-data">
         <div asp-validation-summary="All" class="text-danger"></div>
         <ul class="forminfo">
             <li>
@@ -117,7 +118,7 @@
                     <button type="button" class="layui-btn" id="test2">多图片上传</button>
                     <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                         预览图：
-                        <div class="layui-upload-list" id="demo2"></div>
+                        <div class="layui-upload-list layui-clear" id="demo2" ></div>
                     </blockquote>
                 </div>
             </li>
@@ -274,10 +275,10 @@
         if (imgUrl.indexOf(",") > 0) {
             str = imgUrl.split(",");
             str.forEach(function (value,index) { 
-                demo2.append('<img width=80 height=80 style="margin:0 5px;" src="' + str[index] + '"  class="layui-upload-img">');
+                demo2.append('<div style="width=80; float:left;"><img width=80 height=80 style="margin:0 5px;" src="' + str[index] + '"  class="layui-upload-img"/><div><button type="button"   imgPath="' + str[index] +'" class="layui-btn delImag" >删除<i class="layui-icon">&#xe640;</i></button></div></div>');
             });
         } else {
-            demo2.append('<img width=80 height=80 style="margin:0 5px;" src="' + imgUrl + '"  class="layui-upload-img">');
+            demo2.append('<div style="width=80; float:left;"><img width=80 height=80 style="margin:0 5px;" src="' + imgUrl + '"  class="layui-upload-img"/> <div><button type="button"   class="layui-btn delImag"  imgPath="' + imgUrl +'">删除<i class="layui-icon">&#xe640;</i></button></div></div>');
         }
         
         /*上传多个文件列表----开始*/
@@ -295,7 +296,7 @@
                     layer.load();
                     //预读本地文件示例，不支持ie8
                     obj.preview(function (index, file, result) {
-                        $('#demo2').append('<img width=80 height=80  style="margin:0 5px;" src="' + result + '" alt="' + file.name + '" class="layui-upload-img">');
+                        $('#demo2').append('<div style="width=80; float:left;"><img width=80 height=80  style="margin:0 5px;" src="' + result + '" alt="' + file.name + '" class="layui-upload-img"/> <div><button  imgPath="' + result +'" type="button"  class="layui-btn delImag" >删除<i class="layui-icon">&#xe640;</i></button></div></div>');
                     });
                 }
                 , done: function (res) {
@@ -340,6 +341,32 @@
                     });
             });
 
+        });
+        $("#demo2").on("click", "div button.delImag", function () {
+            var This = $(this);
+            //获取父元素,前端删除图片,后台提交数组删除.
+            var div = This.parent().parent();
+
+            //加载层-默认风格
+            layer.load();
+            $('#form').ajaxSubmit(      //ajax方式提交表单
+                {
+                    url: '/Home/DelImages',
+                    type: 'post',
+                    dataType: 'json',
+                    data: { imgpath: This.attr("imgPath")},
+                    success: function (data) {
+                        if (data.isLogon) {
+                            layer.msg(data.message);
+                            layer.closeAll('loading');
+                            div.empty();
+                        } else {
+                            layer.msg(data.message);
+                            layer.closeAll('loading');
+                        }
+
+                    }
+                });
         });
     });
 </script>

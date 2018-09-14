@@ -34,7 +34,7 @@ namespace Dnc.MvcApp.Controllers
         //[Route("首页")]
         //[Route("首页/Index")]
         //[HttpGet("{id}")]
-        
+
         public IActionResult Index()
         {
             ViewData["Title"] = "首页";
@@ -59,7 +59,7 @@ namespace Dnc.MvcApp.Controllers
             {
                 lp.code = 0;
                 lp.msg = "";
-                 data = _Service.GetAll<ProductsInfo>(m=>m.ProductsCategory).Where(m => m.Name.Contains(strTrpe)).OrderByDescending(b => b.Name).Skip((page - 1) * limit).Take(limit).ToList();
+                data = _Service.GetAll<ProductsInfo>(m => m.ProductsCategory).Where(m => m.Name.Contains(strTrpe)).OrderByDescending(b => b.Name).Skip((page - 1) * limit).Take(limit).ToList();
                 lp.count = _Service.GetAll<ProductsInfo>().ToList().Count();
             });
             List<ProductsInfoMV> Info = new List<ProductsInfoMV>();
@@ -83,7 +83,7 @@ namespace Dnc.MvcApp.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Right(ProductsInfoMV model,string htmlInfo)
+        public async Task<IActionResult> Right(ProductsInfoMV model, string htmlInfo)
         {
             string str = Request.Form["like[isBest]"];
             string str1 = Request.Form["like[isHot]"];
@@ -100,21 +100,21 @@ namespace Dnc.MvcApp.Controllers
                 {
                     await Task.Run(() =>
                     {
-                            ProductsInfo ps = new ProductsInfo();
-                            var pc = _Service.GetSingleBy<ProductsCategory>(m => m.ID == model.ProductsCategoryName);
-                            model.MapBo(ps);
-                            ps.Abstract = htmlInfo;
-                            ps.ProductsCategory = pc;
+                        ProductsInfo ps = new ProductsInfo();
+                        var pc = _Service.GetSingleBy<ProductsCategory>(m => m.ID == model.ProductsCategoryName);
+                        model.MapBo(ps);
+                        ps.Abstract = htmlInfo;
+                        ps.ProductsCategory = pc;
                         if (str == "on" || str == "true") ps.IsBest = true; else ps.IsBest = false;
                         if (str1 == "on" || str1 == "true") ps.IsHot = true; else ps.IsHot = false;
                         if (str2 == "on" || str2 == "true") ps.IsNew = true; else ps.IsNew = false;
                         if (str3 == "on" || str3 == "true") ps.IsFree = true; else ps.IsFree = false;
                         string imgUrl = HttpContext.Session.GetString("img");
-                            ps.ImagesUrl = imgUrl;
-                            _Service.AddAndSave<ProductsInfo>(ps);
-                            logonStatus.IsLogon = true;
-                            logonStatus.Message = "商品添加成功";
-                            HttpContext.Session.SetString("img", "");
+                        ps.ImagesUrl = imgUrl;
+                        _Service.AddAndSave<ProductsInfo>(ps);
+                        logonStatus.IsLogon = true;
+                        logonStatus.Message = "商品添加成功";
+                        HttpContext.Session.SetString("img", "");
                     });
                 }
                 catch (System.Exception)
@@ -122,7 +122,7 @@ namespace Dnc.MvcApp.Controllers
                     logonStatus.IsLogon = false;
                     logonStatus.Message = "商品添加失败";
                 }
-               
+
             }
             return Json(logonStatus);
         }
@@ -134,7 +134,7 @@ namespace Dnc.MvcApp.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            HttpContext.Session.SetString("img","");
+            HttpContext.Session.SetString("img", "");
             var data = _Service.GetSingle<ProductsInfo>(Guid.Parse(id), m => m.ProductsCategory);
             //文章类别 傻瓜式排序 按字段值拍在列的首位
             var TypeList_q = _Service.GetAll<ProductsCategory>().Distinct(p => p.Name).ToList();
@@ -166,12 +166,12 @@ namespace Dnc.MvcApp.Controllers
             {
                 try
                 {
-                    var data = _Service.GetSingleBy<ProductsInfo>(m=>m.ID==model.ID,m=>m.ProductsCategory);
+                    var data = _Service.GetSingleBy<ProductsInfo>(m => m.ID == model.ID, m => m.ProductsCategory);
                     var pc = _Service.GetSingleBy<ProductsCategory>(m => m.ID == model.ProductsCategoryID);
                     model.MapBo(data);
                     data.ProductsCategory = pc;
                     data.Abstract = htmlInfo;
-                    if (str == "on"|| str == "true") data.IsBest = true; else data.IsBest = false;
+                    if (str == "on" || str == "true") data.IsBest = true; else data.IsBest = false;
                     if (str1 == "on" || str1 == "true") data.IsHot = true; else data.IsHot = false;
                     if (str2 == "on" || str2 == "true") data.IsNew = true; else data.IsNew = false;
                     if (str3 == "on" || str3 == "true") data.IsFree = true; else data.IsFree = false;
@@ -179,7 +179,7 @@ namespace Dnc.MvcApp.Controllers
                     if (model.ImagesUrl != "" && model.ImagesUrl != null && imgUrl != "")
                     {
                         imgUrl = model.ImagesUrl + "," + imgUrl;
-                        
+
                     }
                     else if (model.ImagesUrl != "" && model.ImagesUrl != null && imgUrl == "")
                     {
@@ -269,19 +269,19 @@ namespace Dnc.MvcApp.Controllers
         [HttpPost]
         public IActionResult upload(string errorMeg, IList<IFormFile> file)
         {
-            
+
             var UploadFiles = new UploadFiles
             {
                 code = 1,
-                msg ="上传图片失败",
-                data=new data { src=null}
+                msg = "上传图片失败",
+                data = new data { src = null }
             };
             try
             {
 
                 string img = SubImg(file);
                 string imgUrl = HttpContext.Session.GetString("img");
-                if (imgUrl != null&& imgUrl != "")
+                if (imgUrl != null && imgUrl != "")
                 {
                     HttpContext.Session.SetString("img", imgUrl + "," + img);
                 }
@@ -299,7 +299,7 @@ namespace Dnc.MvcApp.Controllers
                 UploadFiles.msg = "上传图片失败";
                 UploadFiles.data.src = null;
             }
-            
+
             return Json(UploadFiles);
         }
         /// <summary>
@@ -319,9 +319,9 @@ namespace Dnc.MvcApp.Controllers
                                .Trim('"');
                 var strDateTime = DateTime.Now.ToString("yyMMddhhmmssfff"); //取得时间字符串
                 var strRan = Convert.ToString(new Random().Next(100, 999)); //生成三位随机数
-                filename = strDateTime + strRan+ filename;
-                imgUrl = "/" + filename;
-                filename = hostingEnv.WebRootPath + $@"\{filename}";
+                filename = strDateTime + strRan + filename;
+                imgUrl = "/img/" + filename;
+                filename = hostingEnv.WebRootPath + $@"\img" + $@"\{filename}";
                 size += file.Length;
                 using (FileStream fs = System.IO.File.Create(filename))
                 {
@@ -332,6 +332,46 @@ namespace Dnc.MvcApp.Controllers
             string img = $"{files.Count} file(s) / { size} bytes uploaded successfully!";
             ViewBag.Message = img;
             return imgUrl;
+        }
+        /// <summary>
+        /// 删除图片
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="imgpath"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult DelImages(string ID,string imgpath)
+        {
+            var logonStatus = new LogonUserStatus
+            {
+                IsLogon = false,
+                Message = "删除失败！"
+            };
+            try
+            {
+                var db = _Service.GetSingleBy<ProductsInfo>(m => m.ID == ID);
+
+                string[] str = db.ImagesUrl.Split(',');
+                List<string> list = new List<string>();
+                for (int i = 0; i < str.Length; i++)
+                {
+                    if (!str[i].Contains(imgpath))
+                    {
+                        list.Add(str[i]);
+                    }
+                }
+                db.ImagesUrl = string.Join(",", list.ToArray());
+                _Service.EditAndSave<ProductsInfo>(db);
+                logonStatus.IsLogon = true;
+                logonStatus.Message = "删除成功！";
+            }
+            catch (Exception)
+            {
+                logonStatus.IsLogon = false;
+                logonStatus.Message = "删除失败！";
+            }
+           
+            return Json(logonStatus);
         }
 
     }

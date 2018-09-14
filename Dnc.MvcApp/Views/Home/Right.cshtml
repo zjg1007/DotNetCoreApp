@@ -117,7 +117,7 @@
                     <button type="button" class="layui-btn" id="test2">多图片上传</button>
                     <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                         预览图：
-                        <div class="layui-upload-list" id="demo2"></div>
+                        <div class="layui-upload-list layui-clear" id="demo2"></div>
                     </blockquote>
                 </div>
             </li>
@@ -258,6 +258,12 @@
 <script src="~/js/layui.js"></script>
 <script type="text/javascript">
     $(function () {
+        $("#demo2").on("click", "div button.delImag", function () {
+            var This = $(this);
+            //获取父元素,前端删除图片,后台提交数组删除.
+            var div = This.parent().parent();
+            div.empty();
+        });
         /*上传多个文件列表----开始*/
         layui.use('upload', function () {
             var $ = layui.jquery
@@ -273,7 +279,7 @@
                     layer.load();
                     //预读本地文件示例，不支持ie8
                     obj.preview(function (index, file, result) {
-                        $('#demo2').append('<img width=80 height=80 style="margin:0 5px;" src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+                        $('#demo2').append('<div style="width=80; float:left;"><img width=80 height=80  style="margin:0 5px;" src="' + result + '" alt="' + file.name + '" class="layui-upload-img"/> <div><button  imgPath="' + result +'" type="button"   class="layui-btn delImag" >删除<i class="layui-icon">&#xe640;</i></button></div></div>')
                     });
                 }
                 , done: function (res) {
@@ -317,7 +323,7 @@
                         }
                     });
             });
-
         });
+     
     });
 </script>
