@@ -362,6 +362,21 @@ namespace Dnc.MvcApp.Controllers
                 }
                 db.ImagesUrl = string.Join(",", list.ToArray());
                 _Service.EditAndSave<ProductsInfo>(db);
+                string img = HttpContext.Session.GetString("img");
+                if (img != "" && img != null)
+                {
+                    list = new List<string>();
+                    str = img.Split(',');
+                    for (int i = 0; i < str.Length; i++)
+                    {
+                        if (!str[i].Contains(imgpath))
+                        {
+                            list.Add(str[i]);
+                        }
+                    }
+                    HttpContext.Session.SetString("img", string.Join(",",list.ToArray()));
+                }
+                
                 logonStatus.IsLogon = true;
                 logonStatus.Message = "删除成功！";
             }

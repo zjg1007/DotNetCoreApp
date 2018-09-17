@@ -277,7 +277,7 @@
             str.forEach(function (value,index) { 
                 demo2.append('<div style="width=80; float:left;"><img width=80 height=80 style="margin:0 5px;" src="' + str[index] + '"  class="layui-upload-img"/><div><button type="button"   imgPath="' + str[index] +'" class="layui-btn delImag" >删除<i class="layui-icon">&#xe640;</i></button></div></div>');
             });
-        } else {
+        } else if (imgUrl != "" && imgUrl!=null) {
             demo2.append('<div style="width=80; float:left;"><img width=80 height=80 style="margin:0 5px;" src="' + imgUrl + '"  class="layui-upload-img"/> <div><button type="button"   class="layui-btn delImag"  imgPath="' + imgUrl +'">删除<i class="layui-icon">&#xe640;</i></button></div></div>');
         }
         
@@ -357,6 +357,16 @@
                     data: { imgpath: This.attr("imgPath")},
                     success: function (data) {
                         if (data.isLogon) {
+                            var imgStr = $("#ImagesUrl").val();
+                            var imgPath = This.attr("imgPath");
+                            str = imgStr.split(",");
+                            var str1 = new Array();
+                            str.forEach(function (value,index) {
+                                if (str[index].indexOf(imgPath) == -1) {
+                                    str1.push(str[index]);
+                                }
+                            });
+                            $("#ImagesUrl").val(str1.join(","));
                             layer.msg(data.message);
                             layer.closeAll('loading');
                             div.empty();
