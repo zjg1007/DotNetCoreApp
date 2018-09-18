@@ -8,7 +8,7 @@ namespace Dnc.DataAccessRepository.Context
     {
         public EntityDbContext(DbContextOptions<EntityDbContext> options)
             : base(options){}
-
+        public DbSet<ApplicationGroup> ApplicationGroup { get; set; }
         public DbSet<ImageInfo> ImageInfo { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<CollectionInfo> CollectionInfo { get; set; }

@@ -39,7 +39,7 @@ namespace Dnc.Entities.Article
         /// </summary>
         public string Image { get; set; }
         /// <summary>
-        /// 使用限制(满金额打折,满金额减,满数量减,满数量打折)
+        /// 使用限制(满金额打折,满金额减,满数量减,满数量打折,积分兑换券)
         /// </summary>
         public int Limit { get; set; }
         /// <summary>

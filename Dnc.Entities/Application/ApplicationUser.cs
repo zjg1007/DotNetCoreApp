@@ -67,6 +67,10 @@ namespace Dnc.Entities.Application
         /// 出生日期
         /// </summary>
         public DateTime BirthDate { get; set; }
+        /// <summary>
+        /// 用户权限
+        /// </summary>
+        public virtual ApplicationGroup ApplicationGroup { get; set; }
         public ApplicationUser()
         {
             this.ID = Guid.NewGuid().ToString();
