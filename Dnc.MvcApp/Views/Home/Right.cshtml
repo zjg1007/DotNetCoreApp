@@ -262,7 +262,24 @@
             var This = $(this);
             //获取父元素,前端删除图片,后台提交数组删除.
             var div = This.parent().parent();
-            div.empty();
+            //加载层-默认风格
+            layer.load();
+            $('#form').ajaxSubmit(      //ajax方式提交表单
+                {
+                    url: '/Home/DelImages',
+                    type: 'post',
+                    dataType: 'json',
+                    data: { imgpath: This.attr("imgPath") },
+                    success: function (data) {
+                        if (data.isLogon) {
+                            layer.msg(data.message);
+                            div.empty();
+                        } else {
+                            layer.msg(data.message);
+                        }
+                        layer.closeAll('loading');
+                    }
+                });
         });
         /*上传多个文件列表----开始*/
         layui.use('upload', function () {

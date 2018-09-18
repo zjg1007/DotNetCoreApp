@@ -349,19 +349,22 @@ namespace Dnc.MvcApp.Controllers
             };
             try
             {
-                var db = _Service.GetSingleBy<ProductsInfo>(m => m.ID == ID);
-
-                string[] str = db.ImagesUrl.Split(',');
                 List<string> list = new List<string>();
-                for (int i = 0; i < str.Length; i++)
+                string[] str;
+                var db = _Service.GetSingleBy<ProductsInfo>(m => m.ID == ID);
+                if (db != null)
                 {
-                    if (!str[i].Contains(imgpath))
+                     str = db.ImagesUrl.Split(',');
+                    for (int i = 0; i < str.Length; i++)
                     {
-                        list.Add(str[i]);
+                        if (!str[i].Contains(imgpath))
+                        {
+                            list.Add(str[i]);
+                        }
                     }
+                    db.ImagesUrl = string.Join(",", list.ToArray());
+                    _Service.EditAndSave<ProductsInfo>(db);
                 }
-                db.ImagesUrl = string.Join(",", list.ToArray());
-                _Service.EditAndSave<ProductsInfo>(db);
                 string img = HttpContext.Session.GetString("img");
                 if (img != "" && img != null)
                 {
