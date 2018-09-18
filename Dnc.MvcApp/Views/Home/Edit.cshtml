@@ -296,12 +296,12 @@
                     layer.load();
                     //预读本地文件示例，不支持ie8
                     obj.preview(function (index, file, result) {
-                        $('#demo2').append('<div style="width=80; float:left;"><img width=80 height=80  style="margin:0 5px;" src="' + result + '" alt="' + file.name + '" class="layui-upload-img"/> <div><button  imgPath="' + result +'" type="button"  class="layui-btn delImag" >删除<i class="layui-icon">&#xe640;</i></button></div></div>');
                     });
                 }
                 , done: function (res) {
                     //上传完毕
                     layer.msg(res.msg);
+                    $('#demo2').append('<div style="width=80; float:left;"><img width=80 height=80  style="margin:0 5px;" src="' + res.data.src + '" alt="' + res.data.src + '" class="layui-upload-img"/> <div><button  imgPath="' + res.data.src + '" type="button"  class="layui-btn delImag" >删除<i class="layui-icon">&#xe640;</i></button></div></div>');
                     layer.closeAll('loading');
                 }
             });

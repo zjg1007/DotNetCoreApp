@@ -8,5 +8,6 @@ namespace Dnc.MvcApp.ViewInjections
     public class data
     {
         public  string src { get; set; }
+        public string imgpath { get; set; }
     }
 }

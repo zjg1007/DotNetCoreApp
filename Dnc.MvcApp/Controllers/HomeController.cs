@@ -291,7 +291,7 @@ namespace Dnc.MvcApp.Controllers
                 }
                 UploadFiles.code = 0;
                 UploadFiles.msg = "上传图片成功";
-                UploadFiles.data.src = imgUrl;
+                UploadFiles.data.src = img;
             }
             catch (Exception)
             {
