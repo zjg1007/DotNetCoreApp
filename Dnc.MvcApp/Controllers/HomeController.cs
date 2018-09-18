@@ -321,7 +321,7 @@ namespace Dnc.MvcApp.Controllers
                 var strRan = Convert.ToString(new Random().Next(100, 999)); //生成三位随机数
                 filename = strDateTime + strRan + filename;
                 imgUrl = "/img/" + filename;
-                filename = hostingEnv.WebRootPath + $@"\img" + $@"\{filename}";
+                filename = hostingEnv.WebRootPath + $@"/img" + $@"/{filename}";
                 size += file.Length;
                 using (FileStream fs = System.IO.File.Create(filename))
                 {
