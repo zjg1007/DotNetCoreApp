@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Dnc.MvcApp.Core.Common.Wechat
 {
-    public class PropertiesUtil
+    public class BasicApi
     {
     }
 }

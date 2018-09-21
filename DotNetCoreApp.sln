@@ -32,6 +32,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dnc.DataAccessRepository", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UEditorNetCore", "UEditorNetCore\UEditorNetCore.csproj", "{6135E1D2-35E7-4E66-804D-3CAFC87D5A0A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07.微信", "07.微信", "{1CAABD0E-9DC0-49BF-857C-2E345BB5C4F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PassivityRequestMessageDemo", "PassivityRequestMessageDemo\PassivityRequestMessageDemo.csproj", "{BD677A35-F428-4270-A29C-7184BF0045D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +70,10 @@ Global
 		{6135E1D2-35E7-4E66-804D-3CAFC87D5A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6135E1D2-35E7-4E66-804D-3CAFC87D5A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6135E1D2-35E7-4E66-804D-3CAFC87D5A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD677A35-F428-4270-A29C-7184BF0045D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD677A35-F428-4270-A29C-7184BF0045D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD677A35-F428-4270-A29C-7184BF0045D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD677A35-F428-4270-A29C-7184BF0045D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +86,7 @@ Global
 		{FB76768F-6CEC-4D23-BB73-E4832B4FDC45} = {9E28BB30-3888-4BF8-9C1D-50CFA4938410}
 		{474AEBB1-E6EA-4384-BA61-B289EB33343C} = {0309DEFA-6407-4946-8DC2-3A3E9B14C7C4}
 		{6135E1D2-35E7-4E66-804D-3CAFC87D5A0A} = {9514F695-F4D1-402D-86B2-E59F58F96A01}
+		{BD677A35-F428-4270-A29C-7184BF0045D0} = {1CAABD0E-9DC0-49BF-857C-2E345BB5C4F7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {088B7FB2-5FA4-48EF-989D-67F26D4BFC47}
