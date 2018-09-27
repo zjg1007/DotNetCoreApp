@@ -26,7 +26,7 @@ namespace PassivityRequestMessageDemo
 
             return WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(config)
-                .UseUrls("http://*:80")
+                .UseUrls("http://*:50001")
                 .UseStartup<Startup>()
                 .Build();
         }

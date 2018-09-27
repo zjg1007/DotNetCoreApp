@@ -20,6 +20,10 @@ namespace Dnc.DataAccessRepository.Context
         public DbSet<SearchHistories> SearchHistories { get; set; }
         public DbSet<ShipAddresses> ShipAddresses { get; set; }
          public DbSet<Coupons> Coupons { get; set; }
+        public DbSet<SignIn> SignIn { get; set; }
+        public DbSet<CollectionPD> CollectionPD { get; set; }
+        public DbSet<BrowsingHistory> BrowsingHistory { get; set; }
+        public DbSet<ShoppingCart> ShoppingCart { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             {
