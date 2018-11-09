@@ -10,25 +10,30 @@ using System.Threading.Tasks;
 
 namespace Dnc.Services.Controllers
 {
+    /// <summary>
+    /// 购物车表
+    /// </summary>
     [Produces("application/json")]
     [Route("api/[controller]")]
     [EnableCors("DncDemo")]
     public class ShoppingCartController: Controller
     {
         private readonly IEntityRepository _DbService;
-
+        /// <summary>
+        /// 购物车表
+        /// </summary>
+        /// <param name="service"></param>
         public ShoppingCartController(IEntityRepository service)
         {
             this._DbService = service;
         }
         /// <summary>
         /// 获取用户购物车信息
-        /// /api/ShoppingCart/GetProductInfoAllByID?Uid=
         /// </summary>
         /// <param name="Uid">用户ID</param>
         /// <returns></returns>
-        [HttpGet("{Uid}")]
-        [HttpGet("GetProductInfoAllByID")]
+        [HttpGet]
+        [Route("GetProductInfoAllByID")]
         public IEnumerable<ShoppingCart> GetProductInfoAllByID(string Uid)
         {
             var data = _DbService.GetAll<ShoppingCart>(m => m.ApplicationUser).Where(m => m.ApplicationUser.Phone == Uid);
@@ -36,12 +41,12 @@ namespace Dnc.Services.Controllers
         }
         /// <summary>
         /// 添加购物车
-        /// /api/ShoppingCart/InsertShoppingCart?Uid=**&&Pid=
         /// </summary>
         /// <param name="Uid">用户ID</param>
         /// <param name="Pid">商品ID</param>
         /// <returns></returns>
-        [HttpGet("InsertShoppingCart")]
+        [HttpGet]
+        [Route("InsertShoppingCart")]
         public LogonUserStatus InsertShoppingCart(string Uid,string Pid)
         {
             var LogonUserStatus = new LogonUserStatus
@@ -82,11 +87,11 @@ namespace Dnc.Services.Controllers
         }
         /// <summary>
         /// 增加商品购买数量
-        /// /api/ShoppingCart/ShoppingCartAddNubmer?id=
         /// </summary>
         /// <param name="id">购物车表ID</param>
         /// <returns></returns>
-        [HttpGet("ShoppingCartAddNubmer")]
+        [HttpGet]
+        [Route("ShoppingCartAddNubmer")]
         public LogonUserStatus ShoppingCartAddNubmer(string id)
         {
             var LogonUserStatus = new LogonUserStatus
@@ -121,11 +126,11 @@ namespace Dnc.Services.Controllers
         }
         /// <summary>
         /// 减去购物车数量
-        /// /api/ShoppingCart/ShoppingCartReduceNubmer?id=
         /// </summary>
         /// <param name="id">购物车ID</param>
         /// <returns></returns>
-        [HttpGet("ShoppingCartReduceNubmer")]
+        [HttpGet]
+        [Route("ShoppingCartReduceNubmer")]
         public LogonUserStatus ShoppingCartReduceNubmer(string id)
         {
             var LogonUserStatus = new LogonUserStatus
@@ -159,11 +164,11 @@ namespace Dnc.Services.Controllers
         }
         /// <summary>
         /// 删除商品信息-购物车
-        /// /api/ShoppingCart/ShoppingCartDel?id=
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">购物车商品ID</param>
         /// <returns></returns>
-        [HttpGet("ShoppingCartDel")]
+        [HttpGet]
+        [Route("ShoppingCartDel")]
         public LogonUserStatus ShoppingCartDel(string id)
         {
             var LogonUserStatus = new LogonUserStatus

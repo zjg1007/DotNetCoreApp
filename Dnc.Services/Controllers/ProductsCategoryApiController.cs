@@ -2,6 +2,7 @@
 using Dnc.Entities.Article;
 using DNC.ApiModel.Article;
 using DNC.ViewModels.Article;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,20 +11,28 @@ using System.Threading.Tasks;
 
 namespace Dnc.Services.Controllers
 {
+    /// <summary>
+    /// 商品类别表
+    /// </summary>
+    [Produces("application/json")]
     [Route("api/[controller]")]
-    public class ProductsCategoryApi : Controller
+    [EnableCors("DncDemo")]
+    public class ProductsCategoryApiController : Controller
     {
         private readonly IEntityRepository _DbService;
-
-        public ProductsCategoryApi(IEntityRepository service)
+        /// <summary>
+        /// 获取全部商品类别信息
+        /// </summary>
+        /// <param name="service"></param>
+        public ProductsCategoryApiController(IEntityRepository service)
         {
             this._DbService = service;
         }
         /// <summary>
         /// 获取全部商品类别信息
         /// </summary>
-        /// /api/ProductsCategoryApi
         /// <returns></returns>
+        [HttpGet]
         public IEnumerable<ProductsCategoryMV> Get()
         {
             var data = _DbService.GetAll<ProductsCategory>().ToList();
@@ -35,9 +44,5 @@ namespace Dnc.Services.Controllers
             return dataList;
         }
       
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
     }
 }

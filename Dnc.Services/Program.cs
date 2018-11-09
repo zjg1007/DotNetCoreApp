@@ -8,8 +8,15 @@ using Microsoft.AspNetCore.Builder;
 
 namespace Dnc.Services
 {
+    /// <summary>
+    /// 程序入口
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// main方法
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()

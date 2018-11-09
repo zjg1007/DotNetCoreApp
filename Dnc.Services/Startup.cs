@@ -11,6 +11,8 @@ using Dnc.Services.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Dnc.DataAccessRepository.Context;
 using Dnc.DataAccessRepository.Repositories;
+using Swashbuckle.AspNetCore.Swagger;
+using System.IO;
 
 namespace Dnc.Services
 {
@@ -27,7 +29,7 @@ namespace Dnc.Services
 
            // BusinessDataAccess.Set();
         }
-
+        
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -58,13 +60,51 @@ namespace Dnc.Services
                 options.IdleTimeout = TimeSpan.FromMinutes(60);
                 options.Cookie.Name = ".MyCoreApp";
             });
+            //注入接口文档
+            #region Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v0.1.0",
+                    Title = "Shopping.Core API",
+                    Description = "商城接口说明",
+                    TermsOfService = "None",
+                    Contact = new Swashbuckle.AspNetCore.Swagger.Contact { Name = "Shopping.Core",
+                        Email = "xx@xx.com",
+                        Url = "http://www.baidu.com" }
+                });
+                //这里是配置好xml文件之后，去读取这个文件
+                var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
+                var xmlPath = Path.Combine(basePath, "Dnc.Services.xml");//这个就是刚刚配置的xml文件名
+                c.IncludeXmlComments(xmlPath, true);//默认的第二个参数是false，这个是controller的注释，记得修改
 
+                //下面是添加实体显示
+                //注意，不能再HttpGet中，用实体类做参数，会报错
+                var xmlModelPath = Path.Combine(basePath, "Dnc.Entities.xml");//这个就是Model层的xml文件名
+
+                c.IncludeXmlComments(xmlModelPath);
+            });
+           
+            #endregion
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            if (env.IsDevelopment())
+            {
+                //位置Swagger
+                #region Swagger
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiHelp V1");
+                    //c.RoutePrefix = "";//路径配置，设置为空，表示直接访问该文件
+                });
+                #endregion
+            }
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

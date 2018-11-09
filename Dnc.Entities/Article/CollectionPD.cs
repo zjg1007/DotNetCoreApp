@@ -9,7 +9,7 @@ namespace Dnc.Entities.Article
     /// <summary>
     /// 收藏商品
     /// </summary>
-    public class CollectionPD
+    public class CollectionPD:IEntity
     {
         [Key]
         public string ID { get; set; }
