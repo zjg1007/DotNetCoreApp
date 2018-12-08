@@ -18,7 +18,7 @@ namespace Dnc.DataAccessRepository.Context
         public EntityDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<EntityDbContext>();
-            builder.UseMySQL("Server=47.98.212.255;port=3306;database=cpmd_team2018;uid=zjg;pwd=123456;SslMode=None");
+            builder.UseMySQL("Server=47.98.212.255;port=3306;database=eHiShopping;uid=zjg;pwd=123456;SslMode=None");
             return new EntityDbContext(builder.Options);
         }
     }

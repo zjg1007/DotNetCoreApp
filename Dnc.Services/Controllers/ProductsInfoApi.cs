@@ -1,6 +1,7 @@
 ﻿using Dnc.DataAccessRepository.Repositories;
 using Dnc.Entities.Article;
 using DNC.ApiModel.Article;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,6 +17,7 @@ namespace Dnc.Services.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [EnableCors("DncDemo")]
+    [Authorize(Policy = "Admin")]
     public class ProductsInfoApi: Controller
     {
         private readonly IEntityRepository _DbService;

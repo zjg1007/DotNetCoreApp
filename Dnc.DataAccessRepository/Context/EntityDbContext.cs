@@ -30,7 +30,7 @@ namespace Dnc.DataAccessRepository.Context
                /* optionsBuilder.UseSqlServer(
                     @"Server=SC-201804102054;Initial Catalog=CPMD_Team20140208; uid=sa;pwd=123;MultipleActiveResultSets=True");
                 base.OnConfiguring(optionsBuilder);*/
-                optionsBuilder.UseMySQL(@"Server=47.98.212.255;port=3306;database=cpmd_team2018;uid=zjg;pwd=123456;SslMode=None");
+                optionsBuilder.UseMySQL(@"Server=47.98.212.255;port=3306;database=eHiShopping;uid=zjg;pwd=123456;SslMode=None");
                 base.OnConfiguring(optionsBuilder);
 
             }
