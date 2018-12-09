@@ -32,20 +32,24 @@ namespace Dnc.Services.Controllers
         /// <summary>
         /// 获取JWT的方法
         /// </summary>
-        /// <param name="id">id</param>
-        /// <param name="sub">角色</param>
+        /// <param name="name">id</param>
+        /// <param name="pass">角色</param>
         /// <returns></returns>
         [HttpGet]
         [Route("Token")]
         public async Task<object> GetJWTStr(string name, string pass)
         {
+            
             string jwtStr = string.Empty;
             bool suc = false;
             //这里就是用户登陆以后，通过数据库去调取数据，分配权限的操作
             //这里直接写死了
-
+            var user = new ApplicationUser();
+            await Task.Run(() =>
+            {
+                user = _DbService.GetSingleBy<ApplicationUser>(m => m.Phone == name && m.Password == pass, m => m.ApplicationGroup);
+            });
             // var user = await sysUserInfoServices.GetUserRoleNameStr(name, pass);
-            var user = _DbService.GetSingleBy<ApplicationUser>(m => m.Phone == name && m.Password == pass,m=>m.ApplicationGroup);
 
             if (user != null)
             {
@@ -68,42 +72,46 @@ namespace Dnc.Services.Controllers
                 token = jwtStr
             });
         }
-        [HttpGet]
-        [Route("GetTokenNuxt")]
-        public async Task<object> GetJWTStrForNuxt(string name, string pass)
-        {
-            string jwtStr = string.Empty;
-            bool suc = false;
-            //这里就是用户登陆以后，通过数据库去调取数据，分配权限的操作
-            //这里直接写死了
-            if (name == "admins" && pass == "admins")
-            {
-                TokenModelJWT tokenModel = new TokenModelJWT();
-                tokenModel.Uid = 1;
-                tokenModel.Role = "Admin";
+        //[HttpGet]
+        //[Route("GetTokenNuxt")]
+        //public async Task<object> GetJWTStrForNuxt(string name, string pass)
+        //{
+        //    string jwtStr = string.Empty;
+        //    bool suc = false;
+        //    //这里就是用户登陆以后，通过数据库去调取数据，分配权限的操作
+        //    //这里直接写死了
+        //    if (name == "admins" && pass == "admins")
+        //    {
+        //        await Task.Run(()=> 
+        //        {
+        //            TokenModelJWT tokenModel = new TokenModelJWT();
+        //            tokenModel.Uid = 1;
+        //            tokenModel.Role = "Admin";
 
-                jwtStr = JwtHelper.IssueJWT(tokenModel);
-                suc = true;
-            }
-            else
-            {
-                jwtStr = "login fail!!!";
-            }
-            var result = new
-            {
-                data = new { success = suc, token = jwtStr }
-            };
+        //            jwtStr = JwtHelper.IssueJWT(tokenModel);
+        //            suc = true;
+        //        });
+        //    }
+        //    else
+        //    {
+        //        jwtStr = "login fail!!!";
+        //    }
+        //    var result = new
+        //    {
+        //        data = new { success = suc, token = jwtStr }
+        //    };
 
-            return Ok(new
-            {
-                success = suc,
-                data = new { success = suc, token = jwtStr }
-            });
-        }
-    #endregion
+        //    return Ok(new
+        //    {
+        //        success = suc,
+        //        data = new { success = suc, token = jwtStr }
+        //    });
+        //}
+        #endregion
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="callBack"></param>
         /// <param name="id"></param>
         /// <param name="sub"></param>
         /// <param name="expiresSliding"></param>

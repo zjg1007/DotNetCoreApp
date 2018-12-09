@@ -22,8 +22,15 @@ using static Dnc.Services.SwaggerHelper.CustomApiVersion;
 
 namespace Dnc.Services
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="env"></param>
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -35,9 +42,15 @@ namespace Dnc.Services
 
            // BusinessDataAccess.Set();
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public IConfigurationRoot Configuration { get; }
         private const string ApiName = "Dnc.Services";
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -167,7 +180,12 @@ namespace Dnc.Services
           });
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
+        /// <param name="loggerFactory"></param>
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {

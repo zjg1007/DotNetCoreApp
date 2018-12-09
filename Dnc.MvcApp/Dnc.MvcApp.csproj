@@ -80,7 +80,7 @@
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.6" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" />
+    <!--<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" />-->
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.3" />
@@ -93,7 +93,7 @@
   
      <ItemGroup>
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.2.301" />
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.2" />
+    <!--<DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.2" />-->
   </ItemGroup>
 
   

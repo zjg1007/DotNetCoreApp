@@ -15,6 +15,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+      //swagger
     },
     "Dnc.Services": {
       "commandName": "Project",

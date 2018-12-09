@@ -2,6 +2,7 @@
 using Dnc.Entities.Article;
 using DNC.ApiModel.Article;
 using DNC.ViewModels.Article;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -33,6 +34,9 @@ namespace Dnc.Services.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize(Roles  = "Admin")]
+        //[Authorize(Roles  = "Admin"),Authorize(Roles = "SystemOrAdmin")]  且
+        //[Authorize(Roles  = "Admin,SystemOrAdmin")]      或
         public IEnumerable<ProductsCategoryMV> Get()
         {
             var data = _DbService.GetAll<ProductsCategory>().ToList();
