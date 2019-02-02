@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dnc.DataAccessRepository.Repositories;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,9 +13,20 @@ namespace Dnc.Services.Controllers
     /// <summary>
     /// 测试接口
     /// </summary>
+    [Produces("application/json")]
     [Route("api/[controller]")]
-    public class testController : Controller
+    [EnableCors("DncDemo")]
+    public class TestController : Controller
     {
+        private readonly IEntityRepository _DbService;
+        /// <summary>
+        /// 签到表
+        /// </summary>
+        /// <param name="service"></param>
+        public TestController(IEntityRepository service)
+        {
+            this._DbService = service;
+        }
         // GET: api/<controller>
         /// <summary>
         ///获取测试数据
