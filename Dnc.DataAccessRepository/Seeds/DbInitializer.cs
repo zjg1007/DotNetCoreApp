@@ -39,7 +39,7 @@ namespace Dnc.DataAccessRepository.Seeds
 
             var appUser = new List<ApplicationUser> {
                 new ApplicationUser {ApplicationGroup=appGroup.Where(m=>m.Name=="管理员").First(), Name="管理员", UserName="Admin",Password="admin123",Photo="",Phone="18877951565",RegisterTime=DateTime.Now,LastVisitTime=DateTime.Now,Safeques="你的名字？",SafeAnswer="Admin",Locked=false,Email="635096109@qq.com",BirthDate=DateTime.Now }
-                ,new ApplicationUser {ApplicationGroup=appGroup.Where(m=>m.Name=="系统管理员").First(),Name="管理员2", UserName="Admin1",Password="admin123",Photo="",Phone="18877951565",RegisterTime=DateTime.Now,LastVisitTime=DateTime.Now,Safeques="你的名字？",SafeAnswer="Admin",Locked=false,Email="635096109@qq.com",BirthDate=DateTime.Now }
+                
             };
             foreach (var item in appUser)
             {

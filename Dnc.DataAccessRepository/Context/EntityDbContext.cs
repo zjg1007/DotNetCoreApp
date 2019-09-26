@@ -27,10 +27,10 @@ namespace Dnc.DataAccessRepository.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             {
-               /* optionsBuilder.UseSqlServer(
-                    @"Server=SC-201804102054;Initial Catalog=CPMD_Team20140208; uid=sa;pwd=123;MultipleActiveResultSets=True");
-                base.OnConfiguring(optionsBuilder);*/
-                optionsBuilder.UseMySQL(@"Server=47.98.212.255;port=3306;database=eHiShopping;uid=zjg;pwd=123456;SslMode=None");
+                //optionsBuilder.UseSqlServer(
+                //    @"Server=.;Initial Catalog=CPMD_Team20140208; uid=sa;pwd=~zjg10077854;MultipleActiveResultSets=True");
+                //base.OnConfiguring(optionsBuilder);
+                optionsBuilder.UseMySql(@"Server=47.103.6.220;port=3306;database=eHiShopping;uid=zjg;pwd=123456;SslMode=None");
                 base.OnConfiguring(optionsBuilder);
 
             }
